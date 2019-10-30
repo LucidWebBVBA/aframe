@@ -60,6 +60,9 @@ prerelease-patch: git-stash clean-dist build
 	git add dist/aframe-master.min.*
 	npm version prepatch -m "release(prepatch): %s" -f --preid=beta
 
+git-push:
+	git push --tags
+
 git-check-clean:
 	git diff-index --quiet HEAD
 
@@ -99,7 +102,7 @@ dry-publish:
 
 .PHONY: build build-dev link
 .PHONY: clean clean-dist
-.PHONY: git-stash git-stash-pop
+.PHONY: git-stash git-stash-pop git-check-clean git-push
 .PHONY: release-major release-minor release-patch
 .PHONY: prerelease-major prerelease-minor prerelease-patch
 .PHONY: publish dry-publish prepublish dry-prepublish
