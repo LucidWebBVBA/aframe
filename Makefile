@@ -24,41 +24,52 @@ build-dev: node_modules
 	@ls -alh dist/aframe-master.js
 	@ls -alh dist/aframe-master.js.map
 
-release-major: build
+release-major: git-stash clean-dist build
 	@echo "Current version is ${PKGVERSION}"
 	@echo "Building major version..."
 	git add dist/aframe-master.min.*
-	npm version major -m "release(major): %s"
+	npm version major -m "release(major): %s" -f
 
-prerelease-major: build
+prerelease-major: git-stash clean-dist build
 	@echo "Current version is ${PKGVERSION}"
 	@echo "Building premajor version..."
 	git add dist/aframe-master.min.*
-	npm version premajor -m "release(premajor): %s"
+	npm version premajor -m "release(premajor): %s" -f --preid=beta
 
-release-minor: build
+release-minor: git-stash clean-dist build
 	@echo "Current version is ${PKGVERSION}"
 	@echo "Building minor version..."
 	git add dist/aframe-master.min.*
-	npm version minor -m "release(minor): %s"
+	npm version minor -m "release(minor): %s" -f
 
-prerelease-minor: build
+prerelease-minor: git-stash clean-dist build
 	@echo "Current version is ${PKGVERSION}"
 	@echo "Building preminor version..."
 	git add dist/aframe-master.min.*
-	npm version minor -m "release(preminor): %s"
+	npm version preminor -m "release(preminor): %s" -f --preid=beta
 
-release-patch: build
+release-patch: git-stash clean-dist build
 	@echo "Current version is ${PKGVERSION}"
 	@echo "Building patch version..."
 	git add dist/aframe-master.min.*
-	npm version patch -m "release(patch): %s"
+	npm version patch -m "release(patch): %s" -f
 
-prerelease-patch: clean-dist build
+prerelease-patch: git-stash clean-dist build
 	@echo "Current version is ${PKGVERSION}"
 	@echo "Building prepatch version..."
 	git add dist/aframe-master.min.*
-	npm version patch -m "release(prepatch): %s"
+	npm version prepatch -m "release(prepatch): %s" -f --preid=beta
+
+git-check-clean:
+	git diff-index --quiet HEAD
+
+git-stash:
+	@echo "Stashing git changes"
+	git stash
+
+git-stash-pop:
+	@echo "Unstashing previous git changes"
+	git stash pop
 
 clean-dist:
 	@echo "Removing dist"
@@ -71,7 +82,24 @@ clean:
 	@echo "Removing dist"
 	rm -rf dist
 
+prepublish:
+	@echo "Publishg ${PKGVERSION} (@beta)"
+	npm publish --access restricted --tag beta
+dry-prepublish:
+	@echo "Publishg ${PKGVERSION} (@beta)"
+	npm publish --access restricted --tag beta --dry
+
+publish:
+	@echo "Publishing ${PKGVERSION}"
+	npm publish --access restricted
+dry-publish:
+	@echo "Publishing ${PKGVERSION}"
+	npm publish --access restricted --dry
+
+
 .PHONY: build build-dev link
-.PHONE: clean clean-dist
-.PHONE: release-major release-minor release-patch
-.PHONE: prerelease-major prerelease-minor prerelease-patch
+.PHONY: clean clean-dist
+.PHONY: git-stash git-stash-pop
+.PHONY: release-major release-minor release-patch
+.PHONY: prerelease-major prerelease-minor prerelease-patch
+.PHONY: publish dry-publish prepublish dry-prepublish
