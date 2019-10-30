@@ -24,43 +24,44 @@ build-dev: node_modules
 	@ls -alh dist/aframe-master.js
 	@ls -alh dist/aframe-master.js.map
 
-release-major: git-stash clean-dist build
+release-major: git-stash clean-dist build build-dev
 	@echo "Current version is ${PKGVERSION}"
 	@echo "Building major version..."
-	git add dist/aframe-master.min.*
+	git add dist/aframe-master.*
 	npm version major -m "release(major): %s" -f
 
-prerelease-major: git-stash clean-dist build
+prerelease-major: git-stash clean-dist build build-dev
 	@echo "Current version is ${PKGVERSION}"
 	@echo "Building premajor version..."
-	git add dist/aframe-master.min.*
+	git add dist/aframe-master.*
 	npm version premajor -m "release(premajor): %s" -f --preid=beta
 
-release-minor: git-stash clean-dist build
+release-minor: git-stash clean-dist build build-dev
 	@echo "Current version is ${PKGVERSION}"
 	@echo "Building minor version..."
-	git add dist/aframe-master.min.*
+	git add dist/aframe-master.*
 	npm version minor -m "release(minor): %s" -f
 
-prerelease-minor: git-stash clean-dist build
+prerelease-minor: git-stash clean-dist build build-dev
 	@echo "Current version is ${PKGVERSION}"
 	@echo "Building preminor version..."
-	git add dist/aframe-master.min.*
+	git add dist/aframe-master.*
 	npm version preminor -m "release(preminor): %s" -f --preid=beta
 
-release-patch: git-stash clean-dist build
+release-patch: git-stash clean-dist build build-dev
 	@echo "Current version is ${PKGVERSION}"
 	@echo "Building patch version..."
-	git add dist/aframe-master.min.*
+	git add dist/aframe-master.*
 	npm version patch -m "release(patch): %s" -f
 
-prerelease-patch: git-stash clean-dist build
+prerelease-patch: git-stash clean-dist build build-dev
 	@echo "Current version is ${PKGVERSION}"
 	@echo "Building prepatch version..."
-	git add dist/aframe-master.min.*
+	git add dist/aframe-master.*
 	npm version prepatch -m "release(prepatch): %s" -f --preid=beta
 
 git-push:
+	git push
 	git push --tags
 
 git-check-clean:
