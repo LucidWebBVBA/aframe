@@ -1,3 +1,5 @@
+var PRELOAD_OPTS = window.AFRAME_PRELOAD_OPTS || {};
+
 // Polyfill `Promise`.
 window.Promise = window.Promise || require('promise-polyfill');
 
@@ -54,7 +56,7 @@ if (window.location.protocol === 'file:') {
 require('present'); // Polyfill `performance.now()`.
 
 // CSS.
-if (utils.device.isBrowserEnvironment) {
+if (!PRELOAD_OPTS.ignoreCSSInjection && utils.device.isBrowserEnvironment) {
   require('./style/aframe.css');
   require('./style/rStats.css');
 }
