@@ -11,7 +11,7 @@ link: node_modules
 	@echo "Linking @lucidweb/aframe"
 	@npm link
 
-build: node_modules
+build: clean-dist node_modules
 	@echo "Building minified version..."
 	npm run browserify -s -- --debug -p [minifyify --map aframe-master.min.js.map --output dist/aframe-master.min.js.map] -o dist/aframe-master.min.js
 	@echo "Generated dist/aframe-master.min.js"
