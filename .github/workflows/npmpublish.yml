@@ -1,4 +1,4 @@
-name: \@lucidwebbvba/aframe
+name: release 
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
           node-version: 12
       - run: make build
 
-  publish-gpr:
+  publish:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -23,10 +23,10 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 12
-          registry-url: https://npm.pkg.github.com/
-          scope: '@lucidwebbvba'
-          
+          registry-url: https://registry.npmjs.org/
+          scope: '@lucidweb'
       - name: Publish
         uses: mikeal/merge-release@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
