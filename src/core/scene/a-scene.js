@@ -65,6 +65,7 @@ module.exports.AScene = registerElement('a-scene', {
         this.setAttribute('keyboard-shortcuts', '');
         this.setAttribute('screenshot', '');
         this.setAttribute('vr-mode-ui', '');
+        this.setAttribute('device-orientation-permission-ui', '');
       }
     },
 
@@ -328,8 +329,11 @@ module.exports.AScene = registerElement('a-scene', {
           // to setup everything from there. Thus, we need to emulate another vrdisplaypresentchange
           // for the actual requestPresent. Need to make sure there are no issues with firing the
           // vrdisplaypresentchange multiple times.
-          var event = new CustomEvent('vrdisplaypresentchange', {detail: {display: utils.device.getVRDisplay()}});
-          if (!isWebXRAvailable) { window.dispatchEvent(event); }
+          var event;
+          if (window.hasNativeWebVRImplementation) {
+            event = new CustomEvent('vrdisplaypresentchange', {detail: {display: utils.device.getVRDisplay()}});
+            window.dispatchEvent(event);
+          }
 
           self.addState('vr-mode');
           self.emit('enter-vr', {target: self});
@@ -383,6 +387,7 @@ module.exports.AScene = registerElement('a-scene', {
           if (this.hasWebXR) {
             this.xrSession.removeEventListener('end', this.exitVRBound);
             this.xrSession.end();
+            this.xrSession = undefined;
             vrManager.setSession(null);
           } else {
             if (vrDisplay.isPresenting) {
