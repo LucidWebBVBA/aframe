@@ -1,5 +1,5 @@
 {
-  "name": "aframe",
+  "name": "@lucidweb/aframe",
   "version": "0.9.2",
   "description": "A web framework for building virtual reality experiences.",
   "homepage": "https://aframe.io/",
@@ -29,7 +29,7 @@
     "test:nobrowser": "NO_BROWSER=true npm test",
     "test:node": "mocha --ui tdd tests/node"
   },
-  "repository": "aframevr/aframe",
+  "repository": "@LucidWebBVBA/aframe",
   "license": "MIT",
   "files": [
     "dist/*",
