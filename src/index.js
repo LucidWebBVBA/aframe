@@ -1,3 +1,5 @@
+require('@lucidweb/retro-webxr').useRetroWebXR();
+
 var PRELOAD_OPTS = window.AFRAME_PRELOAD_OPTS || {};
 
 // Polyfill `Promise`.
