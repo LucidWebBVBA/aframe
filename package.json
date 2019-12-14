@@ -55,6 +55,7 @@
     "webvr-polyfill": "^0.10.10"
   },
   "devDependencies": {
+    "@lucidweb/retro-webxr": "^1.0.0",
     "browserify": "^13.1.0",
     "browserify-derequire": "^0.9.4",
     "browserify-istanbul": "^2.0.0",

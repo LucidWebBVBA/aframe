@@ -1,3 +1,5 @@
+require('@lucidweb/retro-webxr').useRetroWebXR();
+
 // Polyfill `Promise`.
 window.Promise = window.Promise || require('promise-polyfill');
 
