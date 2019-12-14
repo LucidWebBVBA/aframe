@@ -67194,7 +67194,7 @@ function extend() {
 },{}],80:[function(_dereq_,module,exports){
 module.exports={
   "name": "@lucidweb/aframe",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A web framework for building virtual reality experiences.",
   "homepage": "https://aframe.io/",
   "main": "dist/aframe-master.js",
