@@ -1,6 +1,6 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.AFRAME = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(_dereq_,module,exports){
 parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcelRequire,u="function"==typeof _dereq_&&_dereq_;function f(t,n){if(!r[t]){if(!e[t]){var i="function"==typeof parcelRequire&&parcelRequire;if(!n&&i)return i(t,!0);if(o)return o(t,!0);if(u&&"string"==typeof t)return u(t);var c=new Error("Cannot find module '"+t+"'");throw c.code="MODULE_NOT_FOUND",c}p.resolve=function(r){return e[t][1][r]||r},p.cache={};var l=r[t]=new f.Module(t);e[t][0].call(l.exports,p,l,l.exports,this)}return r[t].exports;function p(e){return f(p.resolve(e))}}f.isParcelRequire=!0,f.Module=function(e){this.id=e,this.bundle=f,this.exports={}},f.modules=e,f.cache=r,f.parent=o,f.register=function(r,t){e[r]=[function(e,r){r.exports=t},{}]};for(var c=0;c<t.length;c++)try{f(t[c])}catch(e){i||(i=e)}if(t.length){var l=f(t[t.length-1]);"object"==typeof exports&&"undefined"!=typeof module?module.exports=l:"function"==typeof define&&define.amd?define(function(){return l}):n&&(this[n]=l)}if(parcelRequire=f,i)throw i;return f}({"Focm":[function(_dereq_,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.useRetroWebXR=void 0;var e=/Chrom(?:e|ium)\/([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)/,r=function(r){var t=navigator.userAgent.match(r||e);if(null==t||5!=t.length)return{major:-1,minor:-1,build:-1,patch:-1};var n=t.map(function(e){return parseInt(e,10)});return{major:n[1],minor:n[2],build:n[3],patch:n[4]}},t=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{all:!0},t={};return(e.all||e.requestDevice)&&r().major>=79&&(window.navigator.xr.requestDevice=window.navigator.xr.requestSession,t["window.navigator.xr.requestDevice"]="window.navigator.xr.requestSession"),t};exports.useRetroWebXR=t;
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=exports.useRetroWebXR=void 0;var e=/Chrom(?:e|ium)\/([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)/,r=function(r){var t=navigator.userAgent.match(r||e);if(null==t||5!=t.length)return{major:-1,minor:-1,build:-1,patch:-1};var n=t.map(function(e){return parseInt(e,10)});return{major:n[1],minor:n[2],build:n[3],patch:n[4]}},t=function(e){return function(r){return r.reduce(function(e,r){var t=e||{},n=t[r];return t.all||n||!1},e)}},n=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},n={},a=t(e.browser),o=t(e.aframe);if(a(["requestDevice"])&&r().major>=79&&(window.navigator.xr.requestDevice=window.navigator.xr.requestSession,n["window.navigator.xr.requestDevice"]="window.navigator.xr.requestSession"),o(["assetItemGLBAsArrayBuffer"])){var u=document.querySelectorAll('a-asset-item[src$=".glb"]');u.forEach(function(e){return e.setAttribute("response-type","arraybuffer")}),n.assetItemGLBAsArrayBuffer=u}return n};exports.useRetroWebXR=n;var a=n;exports.default=a;
 },{}]},{},["Focm"], "RetroWebXR")
 
 },{}],2:[function(_dereq_,module,exports){
@@ -67194,7 +67194,7 @@ function extend() {
 },{}],80:[function(_dereq_,module,exports){
 module.exports={
   "name": "@lucidweb/aframe",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A web framework for building virtual reality experiences.",
   "homepage": "https://aframe.io/",
   "main": "dist/aframe-master.js",
@@ -67245,7 +67245,7 @@ module.exports={
     "webvr-polyfill": "^0.10.10"
   },
   "devDependencies": {
-    "@lucidweb/retro-webxr": "^1.0.0",
+    "@lucidweb/retro-webxr": "^2.0.0",
     "browserify": "^13.1.0",
     "browserify-css": "^0.8.4",
     "browserify-derequire": "^0.9.4",
@@ -81352,7 +81352,12 @@ registerGeometry('triangle', {
 });
 
 },{"../core/geometry":134,"../lib/three":181}],179:[function(_dereq_,module,exports){
-_dereq_('@lucidweb/retro-webxr').useRetroWebXR();
+_dereq_('@lucidweb/retro-webxr')
+  .useRetroWebXR({
+    aframe: {
+      assetItemGLBAsArrayBuffer: true
+    }
+  });
 
 var PRELOAD_OPTS = window.AFRAME_PRELOAD_OPTS || {};
 
