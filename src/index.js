@@ -1,4 +1,9 @@
-require('@lucidweb/retro-webxr').useRetroWebXR();
+require('@lucidweb/retro-webxr')
+  .useRetroWebXR({
+    aframe: {
+      assetItemGLBAsArrayBuffer: true
+    }
+  });
 
 var PRELOAD_OPTS = window.AFRAME_PRELOAD_OPTS || {};
 
