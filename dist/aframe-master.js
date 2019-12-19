@@ -67198,7 +67198,7 @@ function extend() {
 },{}],80:[function(_dereq_,module,exports){
 module.exports={
   "name": "@lucidweb/aframe",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A web framework for building virtual reality experiences.",
   "homepage": "https://aframe.io/",
   "main": "dist/aframe-master.js",
@@ -81505,7 +81505,7 @@ _dereq_('./core/a-mixin');
 _dereq_('./extras/components/');
 _dereq_('./extras/primitives/');
 
-console.log('A-Frame Version: 1.0.0 (Date 2019-12-19, Commit #377e1de1)');
+console.log('@lucidweb/aframe version: ' + pkg.version);
 console.log('three Version (https://github.com/supermedium/three.js):',
             pkg.dependencies['super-three']);
 console.log('WebVR Polyfill Version:', pkg.dependencies['webvr-polyfill']);
