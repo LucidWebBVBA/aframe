@@ -88,17 +88,17 @@ clean:
 
 prepublish:
 	@echo "Publishg ${PKGVERSION} (@beta)"
-	npm publish --access restricted --tag beta
+	npm publish --access public --tag beta
 dry-prepublish:
 	@echo "Publishg ${PKGVERSION} (@beta)"
-	npm publish --access restricted --tag beta --dry
+	npm publish --access public--tag beta --dry
 
 publish:
 	@echo "Publishing ${PKGVERSION}"
-	npm publish --access restricted
+	npm publish --access public 
 dry-publish:
 	@echo "Publishing ${PKGVERSION}"
-	npm publish --access restricted --dry
+	npm publish --access public --dry
 
 
 .PHONY: build build-dev link

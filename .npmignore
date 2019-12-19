@@ -1,3 +1,5 @@
+.cache
+/src/.cache
 examples
 tests
 dist/aframe-v*
