@@ -67198,7 +67198,7 @@ function extend() {
 },{}],80:[function(_dereq_,module,exports){
 module.exports={
   "name": "@lucidweb/aframe",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "A web framework for building virtual reality experiences.",
   "homepage": "https://aframe.io/",
   "main": "dist/aframe-master.js",
@@ -69395,7 +69395,7 @@ registerComponent('laser-controls', {
     var data = this.data;
     var el = this.el;
     var self = this;
-    var controlsConfiguration = {hand: data.hand, model: true};
+    var controlsConfiguration = {hand: data.hand, model: data.model};
 
     // Set all controller models.
     el.setAttribute('daydream-controls', controlsConfiguration);
@@ -70284,12 +70284,12 @@ module.exports.Component = registerComponent('look-controls', {
     // Only on mobile devices and only enabled if DeviceOrientation permission has been granted.
     if (utils.device.isMobile()) {
       magicWindowControls = this.magicWindowControls = new THREE.DeviceOrientationControls(this.magicWindowObject);
-      if (typeof DeviceOrientationEvent === 'undefined' && DeviceOrientationEvent.requestPermission) {
+      if (typeof DeviceOrientationEvent !== 'undefined' && DeviceOrientationEvent.requestPermission) {
         magicWindowControls.enabled = false;
         if (this.el.sceneEl.components['device-orientation-permission-ui'].permissionGranted) {
           magicWindowControls.enabled = true;
         } else {
-          this.el.scenEl.addEventListener('deviceorientationpermissiongranted', function () {
+          this.el.sceneEl.addEventListener('deviceorientationpermissiongranted', function () {
             magicWindowControls.enabled = true;
           });
         }
@@ -72083,7 +72083,7 @@ module.exports.Component = register('debug', {
 });
 
 },{"../../core/component":133}],105:[function(_dereq_,module,exports){
-/* global DeviceOrientationEvent  */
+/* global DeviceOrientationEvent, location  */
 var registerComponent = _dereq_('../../core/component').registerComponent;
 var utils = _dereq_('../../utils/');
 var bind = utils.bind;
@@ -72110,6 +72110,12 @@ module.exports.Component = registerComponent('device-orientation-permission-ui',
     var self = this;
 
     if (!this.data.enabled) { return; }
+
+    if (location.hostname !== 'localhost' &&
+        location.hostname !== '127.0.0.1' &&
+        location.protocol === 'http:') {
+      this.showHTTPAlert();
+    }
 
     // Show alert on iPad if Safari is on desktop mode.
     if (utils.device.isMobileDeviceRequestingDesktopSite()) { this.showMobileDesktopModeAlert(); }
@@ -72147,9 +72153,17 @@ module.exports.Component = registerComponent('device-orientation-permission-ui',
   showMobileDesktopModeAlert: function () {
     var self = this;
     var safariIpadAlertEl = createAlertDialog(
-      'Request the mobile version of this site to enjoy it in immersive mode.',
+      'Set your browser to request the mobile version of the site and reload the page to enjoy immersive mode.',
       function () { self.el.removeChild(safariIpadAlertEl); });
     this.el.appendChild(safariIpadAlertEl);
+  },
+
+  showHTTPAlert: function () {
+    var self = this;
+    var httpAlertEl = createAlertDialog(
+      'Access this site over HTTPS to enter VR mode and grant access to the device sensors.',
+      function () { self.el.removeChild(httpAlertEl); });
+    this.el.appendChild(httpAlertEl);
   },
 
   /**
@@ -72222,7 +72236,7 @@ function createAlertDialog (text, onOkClicked) {
   okButton = document.createElement('button');
   okButton.classList.add(DIALOG_BUTTON_CLASS, DIALOG_OK_BUTTON_CLASS);
   okButton.setAttribute(constants.AFRAME_INJECTED, '');
-  okButton.innerHTML = 'Ok';
+  okButton.innerHTML = 'Close';
   buttonsContainer.appendChild(okButton);
 
   // Ask for sensor events to be used
@@ -80944,7 +80958,7 @@ registerPrimitive('a-sky', utils.extendDeep({}, getMeshMixin(), {
   defaultComponents: {
     geometry: {
       primitive: 'sphere',
-      radius: 5000,
+      radius: 500,
       segmentsWidth: 64,
       segmentsHeight: 32
     },
@@ -81015,7 +81029,7 @@ registerPrimitive('a-videosphere', utils.extendDeep({}, getMeshMixin(), {
   defaultComponents: {
     geometry: {
       primitive: 'sphere',
-      radius: 5000,
+      radius: 500,
       segmentsWidth: 64,
       segmentsHeight: 32
     },
