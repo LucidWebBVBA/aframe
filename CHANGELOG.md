@@ -1,3 +1,26 @@
+### 1.0.3 (Dec 30, 2019)
+
+### Fixes
+
+* Add support for Gear VR controller over WebXR (@Artyom17, @dmarcos)
+* Add support for Oculus Go controller over WebXR (@Artyom17, @arpu, @dmarcos)
+* Fallback to a generic controller when a WebXR gamepad is not recognized (#4376) (@Artyom17, @dmarcos)
+* Match physical and virtual position of Quest and Rift S controllers (fix #4374) (@Artyom17, @dmarcos)
+* Consider initial device orientation for magic window tracking. Fix problem when experience loads in landscape orientation on Android devices (@dmarcos)
+* Listen to DOMContentLoaded if scene is not defined before updating the enter VR UI (#4373) (@mkungla, @dmarcos)
+
+### 1.0.2 (Dec 23, 2019)
+
+Bug fixes
+
+### Fixes
+
+* Track DeviceMotionControls yaw delta instead of absolute value to honor initial camera orientation (fix #4368) (@dmarcos)
+* Disable touchmove / mousemove tracking in VR mode. Pose is preserved when exiting VR (@dmarcos)
+* Hide Device Motion permission dialog on desktop requests from mobile devices. Only the alert about requesting mobile page is shown (fix #4369) (@dmarcos)
+* Reset camera rotation to 0 when entering VR to prevent collision between magic window and WebXR poses (fix #4371) (@karanganesan, @dmarcos)
+* Check if headset is connected before disabling mouse controls (fix #4370) (@KrisMerckx, @dmarcos)
+
 ### 1.0.1 (Dec 20, 2019)
 
 Post 1.0.0 release bug fixes.
@@ -56,10 +79,10 @@ WebXR final spec support!
 - Fix incorrect response type inference for glb/gltf files (#4219) (@Ely-S)
 - Fix WebVR deep-linking / navigation (#4199) (@Artyom17)
 - Restore render target to canvas to prevent freezes (@dmarcos)
-- Adjust `three-bmfont-text` to THREE r111 API changes (#4331) (@dmarcos) 
-- Don't consider Firefox Reality and Oculus Browser mobile / phone browsers (#4338) (@dmarcos) 
+- Adjust `three-bmfont-text` to THREE r111 API changes (#4331) (@dmarcos)
+- Don't consider Firefox Reality and Oculus Browser mobile / phone browsers (#4338) (@dmarcos)
 - `DracoLoader` Path set for THREE v108 (#4272) (@arpu)
-- Use glTF header to determine a-asset-item response type (#4228) (@Ely-S) 
+- Use glTF header to determine a-asset-item response type (#4228) (@Ely-S)
 - Remove `setTimeout` call in tick if not raycaster.showLine (#4192) (@ngokevin)
 - isMobileVR differentiates Samsung Internet for Gear VR from Samsung Internet for Android (#4188) (@DougReeder)
 - Apply handedness to Oculus Go controller (#4162) (@dmarcos)
