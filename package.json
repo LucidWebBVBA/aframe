@@ -1,6 +1,6 @@
 {
   "name": "@lucidweb/aframe",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "aframeVersion": "1.0.3",
   "description": "A web framework for building virtual reality experiences.",
   "homepage": "https://aframe.io/",
