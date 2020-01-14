@@ -67218,6 +67218,10 @@ module.exports={
     "lint:fix": "semistandard --fix",
     "precommit": "npm run lint",
     "prepush": "node scripts/testOnlyCheck.js",
+<<<<<<< HEAD
+=======
+    "prerelease": "node scripts/release.js 1.0.2 1.0.3",
+>>>>>>> master
     "start": "npm run dev",
     "start:https": "cross-env SSL=true npm run dev",
     "test": "karma start ./tests/karma.conf.js",
@@ -70481,8 +70485,6 @@ module.exports.Component = registerComponent('look-controls', {
     this.pointerLocked = false;
     this.setupMouseControls();
     this.bindMethods();
-    this.el.object3D.matrixAutoUpdate = false;
-    this.el.object3D.updateMatrix();
 
     this.setupMagicWindowControls();
 
@@ -70669,8 +70671,6 @@ module.exports.Component = registerComponent('look-controls', {
           }
         }
         return;
-      } else {
-        object3D.updateMatrix();
       }
 
       this.updateMagicWindowOrientation();
@@ -70740,7 +70740,7 @@ module.exports.Component = registerComponent('look-controls', {
    */
   onMouseDown: function (evt) {
     var sceneEl = this.el.sceneEl;
-    if (!this.data.enabled || sceneEl.is('vr-mode')) { return; }
+    if (!this.data.enabled || (sceneEl.is('vr-mode') && sceneEl.checkHeadsetConnected())) { return; }
     // Handle only primary button.
     if (evt.button !== 0) { return; }
 
@@ -70828,11 +70828,15 @@ module.exports.Component = registerComponent('look-controls', {
    * Save pose.
    */
   onEnterVR: function () {
-    if (!this.el.sceneEl.checkHeadsetConnected()) { return; }
+    var sceneEl = this.el.sceneEl;
+    if (!sceneEl.checkHeadsetConnected()) { return; }
     this.saveCameraPose();
     this.el.object3D.position.set(0, 0, 0);
     this.el.object3D.rotation.set(0, 0, 0);
-    this.el.object3D.updateMatrix();
+    if (sceneEl.hasWebXR) {
+      this.el.object3D.matrixAutoUpdate = false;
+      this.el.object3D.updateMatrix();
+    }
   },
 
   /**
@@ -70842,6 +70846,7 @@ module.exports.Component = registerComponent('look-controls', {
     if (!this.el.sceneEl.checkHeadsetConnected()) { return; }
     this.restoreCameraPose();
     this.previousHMDPosition.set(0, 0, 0);
+    this.el.object3D.matrixAutoUpdate = true;
   },
 
   /**
@@ -74732,8 +74737,8 @@ module.exports.Component = registerComponent('tracked-controls-webxr', {
   removeSessionEventListeners: function () {
     var sceneEl = this.el.sceneEl;
     if (!sceneEl.xrSession) { return; }
-    sceneEl.xrSession.addEventListener('selectstart', this.emitButtonDownEvent);
-    sceneEl.xrSession.addEventListener('selectend', this.emitButtonUpEvent);
+    sceneEl.xrSession.removeEventListener('selectstart', this.emitButtonDownEvent);
+    sceneEl.xrSession.removeEventListener('selectend', this.emitButtonUpEvent);
   },
 
   emitButtonDownEvent: function (evt) {
@@ -81803,7 +81808,11 @@ _dereq_('./core/a-mixin');
 _dereq_('./extras/components/');
 _dereq_('./extras/primitives/');
 
+<<<<<<< HEAD
 console.log('@lucidweb/aframe version: ' + pkg.version);
+=======
+console.log('A-Frame Version: 1.0.3 (Date 2020-01-06, Commit #d3b9a30a)');
+>>>>>>> master
 console.log('three Version (https://github.com/supermedium/three.js):',
             pkg.dependencies['super-three']);
 console.log('WebVR Polyfill Version:', pkg.dependencies['webvr-polyfill']);
