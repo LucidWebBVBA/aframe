@@ -99,6 +99,7 @@ require('./extras/components/');
 require('./extras/primitives/');
 
 console.log('@lucidweb/aframe version: ' + pkg.version);
+console.log('A-Frame Version: 1.0.3 (Date 2020-01-22, Commit #bac9bff2)');
 console.log('three Version (https://github.com/supermedium/three.js):',
             pkg.dependencies['super-three']);
 console.log('WebVR Polyfill Version:', pkg.dependencies['webvr-polyfill']);
